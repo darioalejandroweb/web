@@ -1,0 +1,888 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="El Show de Dario Alejandro - música, eventos, contrataciones y videos.">
+  <meta name="theme-color" content="#050816">
+  <title>El Show de Dario Alejandro</title>
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #030613;
+      --panel: #070b1b;
+      --yellow: #ffd21a;
+      --gold: #ff9d00;
+      --white: #fff;
+      --cyan: #00eaff;
+      --pink: #ff18d4;
+      --blue: #176cff;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: #fff;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(0, 234, 255, .18), transparent 24%),
+        radial-gradient(circle at 90% 28%, rgba(255, 24, 212, .13), transparent 25%),
+        linear-gradient(135deg, #02040c, #050918 50%, #03040b);
+      font-family: Montserrat, Arial, sans-serif;
+    }
+
+    body:before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, .7) 1px, transparent 1px);
+      background-size: 70px 70px;
+    }
+
+    .site {
+      width: min(1180px, 94%);
+      margin: 0 auto;
+      padding: 18px 0 34px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      min-height: 300px;
+      border: 1px solid rgba(255, 204, 0, .35);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 50px 20px 35px;
+      background:
+        radial-gradient(circle at 15% 35%, rgba(255, 146, 0, .85), transparent 14%),
+        radial-gradient(circle at 84% 25%, rgba(0, 92, 255, .9), transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(0, 170, 255, .32), transparent 25%),
+        linear-gradient(120deg, #07080d, #061d45 45%, #10050f);
+      box-shadow: 0 0 35px rgba(0, 130, 255, .18), inset 0 0 50px rgba(0, 0, 0, .6);
+      margin-bottom: 25px;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 34%;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .72));
+    }
+
+    .hero-lights {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(110deg, transparent 30%, rgba(255, 220, 60, .24) 31%, transparent 34%),
+        linear-gradient(70deg, transparent 63%, rgba(0, 180, 255, .24) 64%, transparent 67%);
+      filter: blur(2px);
+    }
+
+    .music-notes {
+      position: absolute;
+      inset: 12px 25px auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: 55px;
+      color: #ffd21a;
+      text-shadow: 0 0 16px #ff8a00;
+      transform: rotate(-4deg);
+    }
+
+    .crown {
+      position: relative;
+      z-index: 2;
+      color: #ffd21a;
+      font-size: 48px;
+      line-height: 1;
+      text-shadow: 0 0 12px #ff9d00;
+    }
+
+    .hero-kicker {
+      position: relative;
+      z-index: 2;
+      margin: 2px 0 -5px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(38px, 6vw, 66px);
+      font-style: italic;
+      letter-spacing: 1px;
+      text-shadow: 3px 4px 0 #111, 0 0 12px #fff;
+    }
+
+    .hero h1 {
+      position: relative;
+      z-index: 2;
+      margin: 0;
+      font-family: Anton, 'Arial Narrow', sans-serif;
+      font-size: clamp(55px, 10vw, 112px);
+      line-height: .95;
+      letter-spacing: 2px;
+      font-style: italic;
+      color: #ffb300;
+      -webkit-text-stroke: 2px #fff;
+      text-shadow: 4px 6px 0 #080808, 0 0 12px #ffae00, 0 0 30px rgba(255, 174, 0, .55);
+    }
+
+    .hero-subtitle {
+      position: relative;
+      z-index: 2;
+      margin: 15px 0 0;
+      font-weight: 800;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+    }
+
+    /* DISTRIBUCIÓN GENERAL EN 2 COLUMNAS (CONTENIDO + COSTADO) */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 25px;
+      align-items: start;
+    }
+
+    /* SECCIÓN DE PRÓXIMOS EVENTOS (COSTADO IZQUIERDO) */
+    .events {
+      background: rgba(7, 11, 27, 0.7);
+      border: 1px solid rgba(0, 234, 255, .3);
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 234, 255, .1);
+    }
+    .events h2 {
+      margin: 0 0 12px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      text-shadow: 0 0 10px rgba(0, 234, 255, .4);
+    }
+    .event-card {
+      background: #050713;
+      border: 1px solid rgba(255, 210, 26, .3);
+      padding: 6px;
+      box-shadow: 0 0 15px rgba(255, 210, 26, .15);
+      border-radius: 6px;
+    }
+    .event-frame {
+      aspect-ratio: 9/16;
+      overflow: hidden;
+      background: #000;
+      border-radius: 4px;
+    }
+    .event-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* COLUMNA PRINCIPAL DERECHA */
+    .content-column {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .neon-panel {
+      margin-top: 0;
+      padding: 22px 25px 28px;
+      text-align: center;
+      border: 1px solid rgba(0, 234, 255, .35);
+      border-radius: 4px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 100%, rgba(255, 0, 220, .22), transparent 40%),
+        linear-gradient(110deg, #07142c, #090419 48%, #230020);
+      box-shadow: 0 0 25px rgba(255, 0, 200, .13), inset 0 0 28px rgba(0, 150, 255, .08);
+      position: relative;
+    }
+
+    .equalizer {
+      height: 35px;
+      display: flex;
+      gap: 7px;
+      justify-content: center;
+      align-items: flex-end;
+      opacity: .65;
+    }
+
+    .equalizer span {
+      width: 8px;
+      border-radius: 3px 3px 0 0;
+      height: 18px;
+      background: linear-gradient(#00eaff, #ff19d5);
+      box-shadow: 0 0 10px #00eaff;
+      animation: equalize 0.8s ease-in-out infinite alternate;
+    }
+
+    .equalizer span:nth-child(2n) { animation-delay: 0.1s; }
+    .equalizer span:nth-child(3n) { animation-delay: 0.2s; }
+    .equalizer span:nth-child(4n) { animation-delay: 0.3s; }
+
+    @keyframes equalize {
+      from { transform: scaleY(.4); opacity: .5; }
+      to { transform: scaleY(1.2); opacity: 1; }
+    }
+
+    .booking h2, .videos h2 {
+      margin: 0;
+      font-family: Anton, 'Arial Narrow', sans-serif;
+      font-style: italic;
+      font-size: clamp(32px, 4vw, 50px);
+      letter-spacing: 2px;
+      color: var(--yellow);
+      text-shadow: 4px 4px 0 #111, 0 0 14px rgba(255, 191, 0, .6);
+    }
+
+    .phones {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px 24px;
+      margin-top: 10px;
+    }
+
+    .phone {
+      color: #fff;
+      text-decoration: none;
+      font-family: Anton, Arial, sans-serif;
+      font-size: clamp(24px, 3.5vw, 40px);
+      font-style: italic;
+      letter-spacing: 1px;
+      text-shadow: 3px 3px 0 #111;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .phone:hover { color: #ffd21a; }
+
+    .wa {
+      display: inline-grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: #fff;
+      background: #1fca5a;
+      border: 3px solid #fff;
+      font-size: 20px;
+      font-family: Arial, sans-serif;
+      font-style: normal;
+    }
+
+    .or {
+      font-weight: 800;
+      font-style: italic;
+      color: var(--yellow);
+      font-size: 20px;
+    }
+
+    .videos h2 {
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, .3);
+      font-family: 'Bebas Neue', sans-serif;
+      font-style: normal;
+      letter-spacing: 3px;
+    }
+
+    .video-grid {
+      margin-top: 15px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .video-card {
+      background: #050713;
+      border: 1px solid rgba(255, 255, 255, .13);
+      padding: 6px;
+      box-shadow: 0 0 16px rgba(0, 234, 255, .08);
+      position: relative;
+    }
+
+    .video-frame {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .socials {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 20px;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, .18);
+      border-bottom: 1px solid rgba(255, 255, 255, .18);
+      background: linear-gradient(90deg, rgba(255, 255, 255, .02), rgba(255, 0, 200, .08), rgba(0, 234, 255, .05));
+    }
+
+    .social-copy {
+      position: relative;
+      padding: 12px;
+      background: linear-gradient(135deg, #060811, #151026);
+      border: 1px solid rgba(255, 206, 0, .18);
+      overflow: hidden;
+    }
+
+    .social-copy:after {
+      content: "";
+      position: absolute;
+      inset: auto -10% 0 -10%;
+      height: 5px;
+      background: linear-gradient(90deg, transparent, #ff14c8, #ffd21a, #00eaff, transparent);
+      box-shadow: 0 0 14px #ff14c8;
+    }
+
+    .social-copy h2 {
+      margin: 0;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(26px, 3.5vw, 44px);
+      line-height: .95;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    .social-copy strong { color: #ffd21a; }
+    .burst { position: absolute; right: 15px; bottom: 5px; color: #ffd21a; font-size: 32px; }
+
+    .social-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      align-items: start;
+    }
+
+    .social {
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .7px;
+    }
+
+    .social .icon {
+      display: grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 6px;
+      border-radius: 14px;
+      font-size: 30px;
+      font-weight: 900;
+      background: #050505;
+      border: 2px solid #fff;
+      box-shadow: 0 0 14px rgba(255, 255, 255, .12);
+    }
+
+    .instagram .icon { border-color: #ff2bd6; box-shadow: 0 0 14px #ff2bd6; }
+    .youtube .icon { border-color: #ff1c1c; color: #ff1c1c; box-shadow: 0 0 14px #ff1c1c; }
+    .tiktok .icon { border-color: #00eaff; color: #fff; box-shadow: 0 0 14px #00eaff; }
+    .social:hover .icon { transform: translateY(-3px) scale(1.04); }
+
+    .handle {
+      grid-column: 1/-1;
+      display: block;
+      padding: 6px 12px;
+      border: 2px solid #ffd21a;
+      border-radius: 30px;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 800;
+      box-shadow: 0 0 10px rgba(255, 210, 26, .25);
+      background: #07080d;
+    }
+
+    .handle span { color: #ffd21a; font-size: 22px; }
+
+    footer {
+      text-align: center;
+      padding-top: 25px;
+      color: rgba(255, 255, 255, .6);
+      font-size: 12px;
+    }
+
+    /* CHAT LATERAL FLOTANTE */
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+      font-family: Montserrat, sans-serif;
+    }
+    .chat-toggle {
+      background: linear-gradient(135deg, var(--yellow), var(--gold));
+      color: #000;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255,210,26,0.5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chat-box {
+      display: none;
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      width: 320px;
+      background: #070b1b;
+      border: 1px solid var(--cyan);
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0,234,255,0.2);
+      overflow: hidden;
+      flex-direction: column;
+    }
+    .chat-box.open { display: flex; }
+    .chat-header {
+      background: rgba(0,234,255,0.1);
+      padding: 12px;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(0,234,255,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-messages {
+      height: 240px;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .chat-msg {
+      background: rgba(255,255,255,0.05);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .chat-msg strong { color: var(--yellow); display: block; font-size: 11px; margin-bottom: 2px;}
+    .chat-input-area {
+      padding: 10px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .chat-input-area input, .chat-input-area textarea {
+      background: #030613;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: inherit;
+    }
+    .chat-input-area button {
+      background: var(--cyan);
+      color: #000;
+      border: none;
+      padding: 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* BOTÓN Y PANEL DE ADMIN */
+    .admin-trigger {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(7, 11, 27, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffd21a;
+      padding: 10px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      backdrop-filter: blur(5px);
+    }
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .admin-panel {
+      background: #070b1b;
+      border: 2px solid var(--pink);
+      box-shadow: 0 0 30px rgba(255,24,212,0.3);
+      border-radius: 12px;
+      width: min(500px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+    }
+    .admin-panel h3 { margin-top: 0; color: var(--yellow); }
+    .form-group { margin-bottom: 14px; text-align: left; }
+    .form-group label { display: block; font-size: 12px; margin-bottom: 4px; color: var(--cyan); font-weight: 700; }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      background: #030613;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      border-radius: 6px;
+    }
+    .btn-admin {
+      background: linear-gradient(135deg, var(--pink), var(--blue));
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    /* Adaptabilidad en pantallas pequeñas (móviles) */
+    @media (max-width: 900px) {
+      .main-layout { grid-template-columns: 1fr; }
+      .video-grid { grid-template-columns: 1fr; }
+      .socials { grid-template-columns: 1fr; }
+      .event-card { max-width: 320px; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="site">
+    <header class="hero">
+      <div class="hero-lights"></div>
+      <div class="music-notes" aria-hidden="true">♪ ♫ ♪</div>
+      <div class="crown" aria-hidden="true">♛</div>
+      <p class="hero-kicker" id="text-kicker">El Show de</p>
+      <h1 id="text-title">DARIO ALEJANDRO</h1>
+      <p class="hero-subtitle" id="text-subtitle">Música • Eventos • Animación</p>
+    </header>
+
+    <!-- DISTRIBUCIÓN DE DOS COLUMNAS -->
+    <div class="main-layout">
+      
+      <!-- COLUMNA IZQUIERDA: PRÓXIMOS EVENTOS (COSTADO) -->
+      <aside class="events" id="eventos">
+        <h2>PRÓXIMOS EVENTOS</h2>
+        <div class="event-card">
+          <div class="event-frame">
+            <video autoplay muted loop playsinline controls>
+              <source src="video_evento.mp4" type="video/mp4">
+              Tu navegador no soporta la reproducción de videos.
+            </video>
+          </div>
+        </div>
+      </aside>
+
+      <!-- COLUMNA DERECHA: CONTENIDO PRINCIPAL -->
+      <div class="content-column">
+        
+        <section class="booking neon-panel">
+          <div class="equalizer" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <h2>CONTRATACIONES:</h2>
+          <div class="phones">
+            <a id="link-phone1" href="https://wa.me/5492644126635" target="_blank" rel="noopener" class="phone">
+              <span class="wa">◉</span> <span id="text-phone1">264-4126635</span>
+            </a>
+            <span class="or">o al</span>
+            <a id="link-phone2" href="https://wa.me/5492646257140" target="_blank" rel="noopener" class="phone">
+              <span class="wa">◉</span> <span id="text-phone2">264-6257140</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="videos" id="videos">
+          <h2>VIDEOS</h2>
+          <div class="video-grid" id="video-grid">
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe src="https://www.youtube.com/embed/i5LiWfhXWx4" title="Video de El Show de Dario Alejandro" loading="lazy" allowfullscreen></iframe>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe src="https://www.youtube.com/embed/BtzHNamv9WU" title="Video de El Show de Dario Alejandro" loading="lazy" allowfullscreen></iframe>
+              </div>
+            </article>
+            <article class="video-card">
+              <div class="video-frame">
+                <iframe src="https://www.youtube.com/embed/_WLdIR-lYek" title="Video de El Show de Dario Alejandro" loading="lazy" allowfullscreen></iframe>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="socials" id="redes">
+          <div class="social-copy">
+            <h2>SEGUINOS EN NUESTRAS<br><strong>REDES SOCIALES</strong></h2>
+            <div class="burst" aria-hidden="true">✦</div>
+          </div>
+
+          <div class="social-links">
+            <a href="https://www.instagram.com/elshowdedarioalejandro/" target="_blank" rel="noopener" class="social instagram">
+              <span class="icon">◎</span>
+              <span>INSTAGRAM</span>
+            </a>
+            <a href="https://www.youtube.com/@elshowdedarioalejandro" target="_blank" rel="noopener" class="social youtube">
+              <span class="icon">▶</span>
+              <span>YOUTUBE</span>
+            </a>
+            <a href="https://www.tiktok.com/@darioalejandrosae" target="_blank" rel="noopener" class="social tiktok">
+              <span class="icon">♪</span>
+              <span>TIKTOK</span>
+            </a>
+            <a class="handle" href="https://www.instagram.com/elshowdedarioalejandro/" target="_blank" rel="noopener">
+              @elshowdedarioalejandro <span>⌕</span>
+            </a>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <footer>
+      <p>© <span id="year"></span> El Show de Dario Alejandro · Todos los derechos reservados.</p>
+    </footer>
+  </main>
+
+  <!-- Chat Lateral de Comentarios -->
+  <div class="chat-widget">
+    <button class="chat-toggle" onclick="toggleChat()">💬 Comentarios</button>
+    <div class="chat-box" id="chatBox">
+      <div class="chat-header">
+        <span>Chat de Visitantes</span>
+        <button onclick="toggleChat()" style="background:none;border:none;color:#fff;cursor:pointer;font-size:16px;">✕</button>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input-area">
+        <input type="text" id="chatName" placeholder="Tu Nombre">
+        <textarea id="chatText" rows="2" placeholder="Escribe un mensaje..."></textarea>
+        <button onclick="sendChatMessage()">Enviar Mensaje</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón y Modal de Admin -->
+  <button class="admin-trigger" onclick="openAdminModal()">⚙️ Admin</button>
+
+  <div class="modal-overlay" id="adminModal">
+    <div class="admin-panel">
+      <!-- Login -->
+      <div id="adminLogin">
+        <h3>Acceso de Administración</h3>
+        <div class="form-group">
+          <label>Usuario</label>
+          <input type="text" id="adminUser">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="adminPass">
+        </div>
+        <button class="btn-admin" onclick="loginAdmin()">Ingresar</button>
+        <button class="btn-admin" style="background:#444;" onclick="closeAdminModal()">Cancelar</button>
+      </div>
+
+      <!-- Gestor / Panel de Control -->
+      <div id="adminControls" style="display:none;">
+        <h3>Panel de Control</h3>
+        <div class="form-group">
+          <label>Teléfono 1 (WhatsApp)</label>
+          <input type="text" id="inputPhone1" value="264-4126635">
+        </div>
+        <div class="form-group">
+          <label>Teléfono 2 (WhatsApp)</label>
+          <input type="text" id="inputPhone2" value="264-6257140">
+        </div>
+        <div class="form-group">
+          <label>ID Video YouTube 1</label>
+          <input type="text" id="inputVid1" value="i5LiWfhXWx4">
+        </div>
+        <div class="form-group">
+          <label>ID Video YouTube 2</label>
+          <input type="text" id="inputVid2" value="BtzHNamv9WU">
+        </div>
+        <div class="form-group">
+          <label>ID Video YouTube 3</label>
+          <input type="text" id="inputVid3" value="_WLdIR-lYek">
+        </div>
+        <button class="btn-admin" onclick="saveAdminChanges()">Guardar y Sincronizar Cambios</button>
+        <button class="btn-admin" style="background:#444;" onclick="closeAdminModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Asignar año actual automáticamente en el footer
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    // Carga inicial de configuraciones y comentarios guardados al abrir la página
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSavedConfig();
+      renderMessages();
+      
+      // Sincronización automática entre pestañas/dispositivos locales
+      window.addEventListener('storage', (event) => {
+        if (event.key === 'site_config' || event.key === 'chat_msgs') {
+          loadSavedConfig();
+          renderMessages();
+        }
+      });
+    });
+
+    // Lógica del Chat de Comentarios
+    function getStoredMessages() {
+      return JSON.parse(localStorage.getItem('chat_msgs') || '[]');
+    }
+
+    function renderMessages() {
+      const messages = getStoredMessages();
+      const container = document.getElementById('chatMessages');
+      if (!container) return;
+      container.innerHTML = messages.map(m => `
+        <div class="chat-msg">
+          <strong>${escapeHtml(m.name)}</strong>
+          ${escapeHtml(m.text)}
+        </div>
+      `).join('');
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function toggleChat() {
+      document.getElementById('chatBox').classList.toggle('open');
+      renderMessages();
+    }
+
+    function sendChatMessage() {
+      const nameInput = document.getElementById('chatName');
+      const textInput = document.getElementById('chatText');
+      const name = nameInput.value.trim() || 'Anónimo';
+      const text = textInput.value.trim();
+      
+      if(!text) return;
+
+      const messages = getStoredMessages();
+      messages.push({ name, text });
+      localStorage.setItem('chat_msgs', JSON.stringify(messages));
+      
+      textInput.value = '';
+      renderMessages();
+    }
+
+    // Lógica del Panel de Administración y Persistencia
+    function openAdminModal() {
+      document.getElementById('adminModal').classList.add('active');
+    }
+    
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.remove('active');
+    }
+
+    function loginAdmin() {
+      const u = document.getElementById('adminUser').value;
+      const p = document.getElementById('adminPass').value;
+      if (u === 'homero7' && p === '666310Da') {
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminControls').style.display = 'block';
+      } else {
+        alert('Credenciales incorrectas');
+      }
+    }
+
+    function saveAdminChanges() {
+      const p1 = document.getElementById('inputPhone1').value;
+      const p2 = document.getElementById('inputPhone2').value;
+      const v1 = document.getElementById('inputVid1').value;
+      const v2 = document.getElementById('inputVid2').value;
+      const v3 = document.getElementById('inputVid3').value;
+
+      const config = { p1, p2, v1, v2, v3 };
+      localStorage.setItem('site_config', JSON.stringify(config));
+
+      applyConfig(config);
+      alert('¡Cambios guardados correctamente y sincronizados!');
+      closeAdminModal();
+    }
+
+    function loadSavedConfig() {
+      const saved = localStorage.getItem('site_config');
+      if (saved) {
+        try {
+          const config = JSON.parse(saved);
+          document.getElementById('inputPhone1').value = config.p1 || '264-4126635';
+          document.getElementById('inputPhone2').value = config.p2 || '264-6257140';
+          document.getElementById('inputVid1').value = config.v1 || 'i5LiWfhXWx4';
+          document.getElementById('inputVid2').value = config.v2 || 'BtzHNamv9WU';
+          document.getElementById('inputVid3').value = config.v3 || '_WLdIR-lYek';
+          applyConfig(config);
+        } catch(e) {
+          console.error("Error al cargar configuración", e);
+        }
+      }
+    }
+
+    function applyConfig(config) {
+      document.getElementById('text-phone1').innerText = config.p1;
+      document.getElementById('link-phone1').href = `https://wa.me/549${config.p1.replace(/\D/g,'')}`;
+      
+      document.getElementById('text-phone2').innerText = config.p2;
+      document.getElementById('link-phone2').href = `https://wa.me/549${config.p2.replace(/\D/g,'')}`;
+
+      const grid = document.getElementById('video-grid');
+      grid.innerHTML = [config.v1, config.v2, config.v3].map(id => `
+        <article class="video-card">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/${id}" title="Video de El Show de Dario Alejandro" loading="lazy" allowfullscreen></iframe>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function escapeHtml(text) {
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>
